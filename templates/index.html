@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Météo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <!-- SVG icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="icon-sun" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="12" fill="#fbbf24"/>
+        <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round">
+          <line x1="32" y1="6" x2="32" y2="14"/>
+          <line x1="32" y1="50" x2="32" y2="58"/>
+          <line x1="6" y1="32" x2="14" y2="32"/>
+          <line x1="50" y1="32" x2="58" y2="32"/>
+          <line x1="13" y1="13" x2="19" y2="19"/>
+          <line x1="45" y1="45" x2="51" y2="51"/>
+          <line x1="13" y1="51" x2="19" y2="45"/>
+          <line x1="45" y1="19" x2="51" y2="13"/>
+        </g>
+      </symbol>
+      <symbol id="icon-partly" viewBox="0 0 64 64">
+        <circle cx="24" cy="24" r="9" fill="#fbbf24"/>
+        <path d="M20 44 a10 10 0 0 1 0-20 a13 13 0 0 1 24 4 a9 9 0 0 1 2 16 z" fill="#cbd5e1"/>
+      </symbol>
+      <symbol id="icon-cloud" viewBox="0 0 64 64">
+        <path d="M18 46 a11 11 0 0 1 0-22 a14 14 0 0 1 26 4 a10 10 0 0 1 2 18 z" fill="#94a3b8"/>
+      </symbol>
+      <symbol id="icon-fog" viewBox="0 0 64 64">
+        <path d="M18 38 a11 11 0 0 1 0-22 a14 14 0 0 1 26 4 a10 10 0 0 1 2 18 z" fill="#cbd5e1"/>
+        <g stroke="#94a3b8" stroke-width="3" stroke-linecap="round">
+          <line x1="14" y1="48" x2="50" y2="48"/>
+          <line x1="18" y1="56" x2="46" y2="56"/>
+        </g>
+      </symbol>
+      <symbol id="icon-rain" viewBox="0 0 64 64">
+        <path d="M18 38 a11 11 0 0 1 0-22 a14 14 0 0 1 26 4 a10 10 0 0 1 2 18 z" fill="#94a3b8"/>
+        <g stroke="#3b82f6" stroke-width="3" stroke-linecap="round">
+          <line x1="22" y1="46" x2="19" y2="56"/>
+          <line x1="32" y1="46" x2="29" y2="56"/>
+          <line x1="42" y1="46" x2="39" y2="56"/>
+        </g>
+      </symbol>
+      <symbol id="icon-snow" viewBox="0 0 64 64">
+        <path d="M18 38 a11 11 0 0 1 0-22 a14 14 0 0 1 26 4 a10 10 0 0 1 2 18 z" fill="#cbd5e1"/>
+        <g fill="#e0f2fe">
+          <circle cx="22" cy="50" r="2.5"/>
+          <circle cx="32" cy="54" r="2.5"/>
+          <circle cx="42" cy="50" r="2.5"/>
+        </g>
+      </symbol>
+      <symbol id="icon-storm" viewBox="0 0 64 64">
+        <path d="M18 38 a11 11 0 0 1 0-22 a14 14 0 0 1 26 4 a10 10 0 0 1 2 18 z" fill="#64748b"/>
+        <polygon points="30,44 24,56 31,56 27,64 40,50 33,50 38,44" fill="#fbbf24"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main class="app">
+    <h1>Météo</h1>
+    <form method="post" class="search">
+      <input type="text" name="city" placeholder="Entrez une ville..." value="{{ city }}" autofocus />
+      <button type="submit">Rechercher</button>
+    </form>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if weather %}
+      <section class="current">
+        <svg class="icon-lg"><use href="#icon-{{ weather.icon }}"></use></svg>
+        <div class="current-info">
+          <div class="location">{{ weather.location }}</div>
+          <div class="temp">{{ weather.temperature }}&deg;C</div>
+          <div class="condition">{{ weather.condition }}</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span>Humidité</span><strong>{{ weather.humidity }}%</strong></div>
+          <div class="metric"><span>Vent</span><strong>{{ weather.wind }} km/h</strong></div>
+        </div>
+      </section>
+
+      {% if weather.forecast %}
+      <section class="forecast">
+        {% for day in weather.forecast %}
+          <div class="day">
+            <div class="day-date">{{ day.date }}</div>
+            <svg class="icon-sm"><use href="#icon-{{ day.icon }}"></use></svg>
+            <div class="day-temp"><strong>{{ day.max }}&deg;</strong> / {{ day.min }}&deg;</div>
+          </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    {% endif %}
+  </main>
+</body>
+</html>

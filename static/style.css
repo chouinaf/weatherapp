@@ -1,0 +1,121 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(160deg, #1e3a8a 0%, #0ea5e9 100%);
+  color: #f8fafc;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.search input {
+  flex: 1;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search button {
+  padding: 14px 22px;
+  border: none;
+  border-radius: 12px;
+  background: #fbbf24;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.search button:hover { background: #f59e0b; }
+
+.error {
+  background: rgba(239, 68, 68, 0.9);
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.current {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.icon-lg { width: 96px; height: 96px; }
+.icon-sm { width: 48px; height: 48px; }
+
+.location { font-size: 1.1rem; opacity: 0.9; }
+.temp { font-size: 3rem; font-weight: 700; line-height: 1.1; }
+.condition { font-size: 1.1rem; opacity: 0.95; }
+
+.metrics {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.metric {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric span { font-size: 0.85rem; opacity: 0.8; }
+.metric strong { font-size: 1.2rem; }
+
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.day {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 16px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.day-date { font-size: 0.85rem; opacity: 0.85; }
+.day-temp { font-size: 0.95rem; opacity: 0.95; }
